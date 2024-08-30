@@ -5,6 +5,10 @@
     "@angular/common": "^17.3.0",
     "@angular/core": "^17.3.0"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/tebib91/angular-libraries"
+  },
   "dependencies": {
     "tslib": "^2.3.0"
   },
