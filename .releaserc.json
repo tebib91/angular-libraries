@@ -2,6 +2,7 @@
   "branches": [
     "master"
   ],
+  "repositoryUrl": "https://github.com/tebib91/angular-libraries",
   "plugins": [
     "@semantic-release/commit-analyzer",
     "@semantic-release/release-notes-generator",
