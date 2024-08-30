@@ -5,6 +5,13 @@
 
 * **acttions:** fix taskbar-ci husky ([8c151a3](https://github.com/tebib91/angular-libraries/commit/8c151a346666545ccfd92244135f154973677173))
 
+## [1.0.1](https://github.com/tebib91/angular-libraries/compare/v1.0.0...v1.0.1) (2024-08-30)
+
+
+### Bug Fixes
+
+* **acttions:** fix taskbar-ci husky ([8c151a3](https://github.com/tebib91/angular-libraries/commit/8c151a346666545ccfd92244135f154973677173))
+
 # 1.0.0 (2024-08-30)
 
 
