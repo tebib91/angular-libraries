@@ -1,0 +1,55 @@
+{
+  "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+  "version": 1,
+  "newProjectRoot": "projects",
+  "projects": {
+    "taskbar": {
+      "projectType": "library",
+      "root": "projects/taskbar",
+      "sourceRoot": "projects/taskbar/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:ng-packagr",
+          "options": {
+            "project": "projects/taskbar/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/taskbar/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "projects/taskbar/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "tsConfig": "projects/taskbar/tsconfig.spec.json",
+            "polyfills": [
+              "zone.js",
+              "zone.js/testing"
+            ]
+          }
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": [
+              "projects/taskbar/**/*.ts",
+              "projects/taskbar/**/*.html"
+            ]
+          }
+        }
+      }
+    }
+  },
+  "cli": {
+    "analytics": "afad5355-b3ef-4efd-be22-ac957b344795",
+    "schematicCollections": [
+      "@angular-eslint/schematics"
+    ]
+  }
+}
