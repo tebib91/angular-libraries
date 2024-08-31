@@ -6,15 +6,14 @@
   width: auto;
   display: flex;
   align-items: center;
-  background-color: var(--alternate-content-background, rgba(244, 245, 245, 1)); // Fallback to default
-  border: 0.03125rem solid var(--border-color, rgba(0, 0, 0, 0.1)); // Fallback to default
+  background-color: var(--background-color, rgba(244, 245, 245, 1)); // Use CSS variable with a fallback
+  border: 0.03125rem solid var(--border-color, rgba(0, 0, 0, 0.1)); // Use CSS variable with a fallback
   box-shadow: 0 0.1875rem 0.375rem rgba(0, 0, 0, 0.16), 0 0.1875rem 0.375rem rgba(0, 0, 0, 0.23);
   padding: 0.375rem 0.5rem 0.125rem;
-  border-radius: 1rem;
-  transition: width 0.2s ease;
+  border-radius: var(--border-radius, 1rem); // Use CSS variable with a fallback
+  transition: width 0.2s ease, border-radius 0.2s ease, background-color 0.2s ease; // Animate changes
   height: auto;
 
-  /* Full-width version */
   &.full-width {
     left: 0;
     transform: none;
@@ -23,12 +22,12 @@
   }
 
   .taskbar-item {
-    width: 3rem; // 48px -> 3rem
-    margin: 0 0.625rem; // 10px -> 0.625rem
+    width: var(--icon-size, 3rem); // Use CSS variable for icon size
+    margin: 0 0.625rem;
     transition: transform 0.2s ease-out;
 
     >img {
-      width: inherit;
+      width: 100%; // Ensure the icon uses the full width of its container
     }
 
     &:hover {
@@ -39,33 +38,33 @@
       border-left: 0.03125rem solid rgba(0, 0, 0, 0.1);
     }
   }
-}
 
-.toggle {
-  appearance: none;
-  outline: none;
-  cursor: pointer;
-  width: 2.375rem; // 38px -> 2.375rem
-  height: 2.375rem; // 38px -> 2.375rem
-  box-shadow: inset 0.575rem -0.4375rem 0; // 28px * 0.33 -> 0.575rem, 28px * -0.25 -> -0.4375rem
-  border-radius: 999px;
-  color: #e6e6ff;
-  transition: all 0.5s !important;
+  .toggle {
+    appearance: none;
+    outline: none;
+    cursor: pointer;
+    width: 2.375rem;
+    height: 2.375rem;
+    box-shadow: inset 0.575rem -0.4375rem 0;
+    border-radius: 999px;
+    color: #e6e6ff;
+    transition: all 0.5s !important;
 
-  &:checked {
-    --ray-size: -0.7rem; // 28px * -0.4 -> -0.7rem
-    --offset-orthogonal: 1.125rem; // 28px * 0.65 -> 1.125rem
-    --offset-diagonal: 0.7875rem; // 28px * 0.45 -> 0.7875rem
-    transform: scale(0.75);
-    color: #fa0;
-    box-shadow: inset 0 0 0 1.75rem, // 28px -> 1.75rem
-      calc(var(--offset-orthogonal) * -1) 0 0 var(--ray-size),
-      var(--offset-orthogonal) 0 0 var(--ray-size),
-      0 calc(var(--offset-orthogonal) * -1) 0 var(--ray-size),
-      0 var(--offset-orthogonal) 0 var(--ray-size),
-      calc(var(--offset-diagonal) * -1) calc(var(--offset-diagonal) * -1) 0 var(--ray-size),
-      var(--offset-diagonal) var(--offset-diagonal) 0 var(--ray-size),
-      calc(var(--offset-diagonal) * -1) var(--offset-diagonal) 0 var(--ray-size),
-      var(--offset-diagonal) calc(var(--offset-diagonal) * -1) 0 var(--ray-size);
+    &:checked {
+      --ray-size: -0.7rem;
+      --offset-orthogonal: 1.125rem;
+      --offset-diagonal: 0.7875rem;
+      transform: scale(0.75);
+      color: #fa0;
+      box-shadow: inset 0 0 0 1.75rem,
+        calc(var(--offset-orthogonal) * -1) 0 0 var(--ray-size),
+        var(--offset-orthogonal) 0 0 var(--ray-size),
+        0 calc(var(--offset-orthogonal) * -1) 0 var(--ray-size),
+        0 var(--offset-orthogonal) 0 var(--ray-size),
+        calc(var(--offset-diagonal) * -1) calc(var(--offset-diagonal) * -1) 0 var(--ray-size),
+        var(--offset-diagonal) var(--offset-diagonal) 0 var(--ray-size),
+        calc(var(--offset-diagonal) * -1) var(--offset-diagonal) 0 var(--ray-size),
+        var(--offset-diagonal) calc(var(--offset-diagonal) * -1) 0 var(--ray-size);
+    }
   }
 }

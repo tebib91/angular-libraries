@@ -46,6 +46,12 @@ import { TaskbarComponent, TaskbarIcon } from 'taskbar-angular';
       [icons]="taskbarIcons"
       [showThemeToggle]="true"
       [fullWidth]="true"
+      [backgroundColor]="'rgba(255, 255, 255, 1)'"
+      [darkThemeBackgroundColor]="'rgba(34, 34, 34, 1)'"
+      [borderColor]="'rgba(0, 0, 0, 0.2)'"
+      [borderDarkMode]="'rgba(255, 255, 255, 0.2)'"
+      [borderRadius]="'0.5rem'"
+      [iconSize]="'4rem'"
       (program)="handleProgram($event)"
       (themeToggled)="handleThemeToggle($event)"
     ></lib-taskbar>
@@ -80,11 +86,17 @@ export class AppComponent {
 
 - **`fullWidth`** (`boolean`, default: `false`): Whether the taskbar should occupy the full width of its container.
 
-- **`backgroundColor`** (`string`, default: `'rgba(244, 245, 245, 1)'`): The background color of the taskbar in light theme.
+- **`backgroundColor`** (`string`, default: `'rgba(244, 245, 245, 1)'`): The background color of the taskbar in light theme. Can be controlled via CSS variables.
 
-- **`darkThemeBackgroundColor`** (`string`, default: `'rgba(50, 50, 50, 1)'`): The background color of the taskbar in dark theme.
+- **`darkThemeBackgroundColor`** (`string`, default: `'rgba(50, 50, 50, 1)'`): The background color of the taskbar in dark theme. Can be controlled via CSS variables.
 
-- **`borderColor`** (`string`, default: `'rgba(0, 0, 0, 0.1)'`): The border color of the taskbar.
+- **`borderColor`** (`string`, default: `'rgba(0, 0, 0, 0.1)'`): The border color of the taskbar in light theme. Can be controlled via CSS variables.
+
+- **`borderDarkMode`** (`string`, default: `'rgba(255, 255, 255, 0.1)'`): The border color of the taskbar in dark theme. Can be controlled via CSS variables.
+
+- **`borderRadius`** (`string`, default: `'1rem'`): The border radius of the taskbar. Can be controlled via CSS variables.
+
+- **`iconSize`** (`string`, default: `'3rem'`): The size of the icons in the taskbar. Can be controlled via CSS variables.
 
 ### TaskbarComponent Outputs
 
@@ -117,6 +129,12 @@ import { TaskbarComponent, TaskbarIcon } from 'taskbar-angular';
       [icons]="taskbarIcons"
       [showThemeToggle]="true"
       [fullWidth]="true"
+      [backgroundColor]="'#ffffff'"
+      [darkThemeBackgroundColor]="'#333333'"
+      [borderColor]="'#dddddd'"
+      [borderDarkMode]="'#444444'"
+      [borderRadius]="'1rem'"
+      [iconSize]="'3.5rem'"
       (program)="handleProgram($event)"
       (themeToggled)="handleThemeToggle($event)"
     ></lib-taskbar>
@@ -144,18 +162,24 @@ export class AppComponent {
 ## Customization
 
 You can easily customize the `TaskbarComponent` by adjusting the following properties:
-- `backgroundColor`: Sets the background color for the light theme.
-- `darkThemeBackgroundColor`: Sets the background color for the dark theme.
-- `borderColor`: Sets the border color.
+- `backgroundColor`: Sets the background color for the light theme using a CSS variable.
+- `darkThemeBackgroundColor`: Sets the background color for the dark theme using a CSS variable.
+- `borderColor`: Sets the border color for the light theme using a CSS variable.
+- `borderDarkMode`: Sets the border color for the dark theme using a CSS variable.
+- `borderRadius`: Sets the border radius using a CSS variable.
+- `iconSize`: Sets the size of the icons using a CSS variable.
 
 ### Example with Custom Styles
 
 ```typescript
 <lib-taskbar
   [icons]="taskbarIcons"
-  [backgroundColor]="'#ffffff'"
-  [darkThemeBackgroundColor]="'#333333'"
-  [borderColor]="'#dddddd'"
+  [backgroundColor]="'#f8f9fa'"
+  [darkThemeBackgroundColor]="'#343a40'"
+  [borderColor]="'#ced4da'"
+  [borderDarkMode]="'#495057'"
+  [borderRadius]="'0.25rem'"
+  [iconSize]="'4rem'"
   [showThemeToggle]="true"
   (program)="handleProgram($event)"
   (themeToggled)="handleThemeToggle($event)"
