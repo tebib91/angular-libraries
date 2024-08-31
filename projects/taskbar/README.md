@@ -1,98 +1,190 @@
+# Taskbar Angular Library
 
-# Taskbar
+[![npm version](https://badge.fury.io/js/taskbar-angular.svg)](https://badge.fury.io/js/taskbar-angular)
+[![Build Status](https://travis-ci.com/tebib91/taskbar-angular.svg?branch=main)](https://travis-ci.com/tebib91/taskbar-angular)
+[![MIT License](https://img.shields.io/badge/license-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 
-This library provides a customizable taskbar component for Angular applications.
+`taskbar-angular` is an Angular library that provides a customizable taskbar component, offering a modern and sleek interface for your Angular applications. It is compatible with Angular versions 16, 17, and 18.
+
+## Table of Contents
+- [Installation](#installation)
+- [Usage](#usage)
+  - [Standalone Component Usage](#standalone-component-usage)
+  - [TaskbarComponent Inputs](#taskbarcomponent-inputs)
+  - [TaskbarComponent Outputs](#taskbarcomponent-outputs)
+  - [TaskbarIcon Interface](#taskbaricon-interface)
+  - [Example](#example)
+- [Customization](#customization)
+- [Building the Library](#building-the-library)
+- [Contributing](#contributing)
+- [License](#license)
 
 ## Installation
 
-First, install the `Taskbar` library in your Angular project by running:
+To install the library, use npm:
 
 ```bash
-npm install taskbar
+npm install taskbar-angular
 ```
+
+Ensure that your project is using a compatible Angular version (`^16.0.0`, `^17.0.0`, or `^18.0.0`).
 
 ## Usage
 
-### Importing the Taskbar Module
+### Standalone Component Usage
 
-To use the `Taskbar` component in your project, import the `TaskbarModule` in your Angular module:
-
-```typescript
-import { TaskbarModule } from 'taskbar';
-
-@NgModule({
-  declarations: [
-    AppComponent
-  ],
-  imports: [
-    BrowserModule,
-    TaskbarModule  // Import the Taskbar module
-  ],
-  providers: [],
-  bootstrap: [AppComponent]
-})
-export class AppModule { }
-```
-
-### Using the Taskbar Component
-
-You can now use the `Taskbar` component in your templates. Here’s an example:
-
-```html
-<lib-taskbar [icons]="iconsDock" [showThemeToggle]="true" [fullWidth]="false"
-      [backgroundColor]="'rgba(244, 245, 245, 1)'" [darkThemeBackgroundColor]="'rgba(34, 34, 34, 1)'"
-      [borderColor]="'rgba(0, 0, 0, 0.2)'" (program)="handleProgramClick($event)"
-      (themeToggled)="handleThemeToggle($event)">
-</lib-taskbar>
-```
-
-In your component's TypeScript file, define the `iconsDock` array and the event handlers:
+To use the `TaskbarComponent` in your Angular project, import it into the relevant module or component.
 
 ```typescript
 import { Component } from '@angular/core';
-
-export interface Icons {
-  icon: string;
-  label: string;
-  id: string;
-}
-
-export const iconsDock: Icons[] = [
-  { icon: '/assets/dock/finder.png', label: 'Finder', id: 'FinderComponent' },
-  { icon: '/assets/dock/notes.png', label: 'Notes', id: 'NotesComponent' },
-  { icon: '/assets/dock/maps.png', label: 'Maps', id: 'MapsComponent' },
-  { icon: '/assets/dock/calculator.png', label: 'Calculator', id: 'CalculatorComponent' },
-  { icon: '/assets/dock/music.png', label: 'Music', id: 'MusicComponent' },
-  { icon: '/assets/dock/preferences.png', label: 'System Preferences', id: 'SystemComponent' },
-  { icon: '/assets/dock/bin.png', label: 'Bin', id: 'BinComponent' },
-];
+import { TaskbarComponent, TaskbarIcon } from 'taskbar-angular';
 
 @Component({
   selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  template: `
+    <lib-taskbar
+      [icons]="taskbarIcons"
+      [showThemeToggle]="true"
+      [fullWidth]="true"
+      (program)="handleProgram($event)"
+      (themeToggled)="handleThemeToggle($event)"
+    ></lib-taskbar>
+  `,
+  standalone: true,
+  imports: [TaskbarComponent]
 })
 export class AppComponent {
-  iconsDock = iconsDock;
+  taskbarIcons: TaskbarIcon[] = [
+    { icon: 'assets/icons/app1.png', label: 'App 1' },
+    { icon: 'assets/icons/app2.png', label: 'App 2' }
+  ];
 
-  handleProgramClick(icon: any) {
-    console.log('Icon clicked:', icon);
-    // Add your custom logic here
+  handleProgram(icon: TaskbarIcon) {
+    console.log('Program clicked:', icon);
   }
 
-  handleThemeToggle(isDarkMode: boolean) {
-    console.log('Theme toggled:', isDarkMode ? 'Dark Mode' : 'Light Mode');
-    this.themeService.toggleDarkMode();
+  handleThemeToggle(isDarkTheme: boolean) {
+    console.log('Dark theme enabled:', isDarkTheme);
   }
-
-  constructor(private themeService: ThemeService) {}
 }
 ```
 
-### Screenshot
+### TaskbarComponent Inputs
 
-Below is a screenshot of the `Taskbar` component in action:
+- **`icons`** (`TaskbarIcon[]`): Array of icons to display on the taskbar. Each `TaskbarIcon` contains:
+  - `icon` (string): The path to the icon image.
+  - `label` (string): A label for the icon.
+  - `id` (string, optional): An optional identifier for the icon.
 
-![Taskbar Screenshot](./assets/image.png)
-![Taskbar Screenshot](./assets/image2.png)
+- **`showThemeToggle`** (`boolean`, default: `false`): Whether to display a theme toggle switch on the taskbar.
 
+- **`fullWidth`** (`boolean`, default: `false`): Whether the taskbar should occupy the full width of its container.
+
+- **`backgroundColor`** (`string`, default: `'rgba(244, 245, 245, 1)'`): The background color of the taskbar in light theme.
+
+- **`darkThemeBackgroundColor`** (`string`, default: `'rgba(50, 50, 50, 1)'`): The background color of the taskbar in dark theme.
+
+- **`borderColor`** (`string`, default: `'rgba(0, 0, 0, 0.1)'`): The border color of the taskbar.
+
+### TaskbarComponent Outputs
+
+- **`program`** (`EventEmitter<TaskbarIcon>`): Emits the clicked `TaskbarIcon`.
+
+- **`themeToggled`** (`EventEmitter<boolean>`): Emits `true` if the dark theme is enabled, otherwise `false`.
+
+### TaskbarIcon Interface
+
+```typescript
+export interface TaskbarIcon {
+  icon: string;
+  label: string;
+  id?: string;
+}
+```
+
+## Example
+
+Here is a complete example of using the `TaskbarComponent` in an Angular project:
+
+```typescript
+import { Component } from '@angular/core';
+import { TaskbarComponent, TaskbarIcon } from 'taskbar-angular';
+
+@Component({
+  selector: 'app-root',
+  template: `
+    <lib-taskbar
+      [icons]="taskbarIcons"
+      [showThemeToggle]="true"
+      [fullWidth]="true"
+      (program)="handleProgram($event)"
+      (themeToggled)="handleThemeToggle($event)"
+    ></lib-taskbar>
+  `,
+  standalone: true,
+  imports: [TaskbarComponent]
+})
+export class AppComponent {
+  taskbarIcons: TaskbarIcon[] = [
+    { icon: 'assets/icons/app1.png', label: 'App 1' },
+    { icon: 'assets/icons/app2.png', label: 'App 2' },
+    { icon: 'assets/icons/app3.png', label: 'App 3' }
+  ];
+
+  handleProgram(icon: TaskbarIcon) {
+    console.log('Program clicked:', icon);
+  }
+
+  handleThemeToggle(isDarkTheme: boolean) {
+    console.log('Dark theme enabled:', isDarkTheme);
+  }
+}
+```
+
+## Customization
+
+You can easily customize the `TaskbarComponent` by adjusting the following properties:
+- `backgroundColor`: Sets the background color for the light theme.
+- `darkThemeBackgroundColor`: Sets the background color for the dark theme.
+- `borderColor`: Sets the border color.
+
+### Example with Custom Styles
+
+```typescript
+<lib-taskbar
+  [icons]="taskbarIcons"
+  [backgroundColor]="'#ffffff'"
+  [darkThemeBackgroundColor]="'#333333'"
+  [borderColor]="'#dddddd'"
+  [showThemeToggle]="true"
+  (program)="handleProgram($event)"
+  (themeToggled)="handleThemeToggle($event)"
+></lib-taskbar>
+```
+
+## Building the Library
+
+If you want to build the library from the source code, clone the repository and run:
+
+```bash
+npm install
+npm run build
+```
+
+The output will be located in the `dist/` directory.
+
+## Contributing
+
+We welcome contributions! If you find a bug or have a feature request, please open an issue or submit a pull request on [GitHub](https://github.com/tebib91/angular-libraries).
+
+### How to Contribute
+
+1. Fork the repository.
+2. Create a new branch (`git checkout -b feature-branch`).
+3. Make your changes and commit them (`git commit -am 'Add new feature'`).
+4. Push to the branch (`git push origin feature-branch`).
+5. Create a new Pull Request.
+
+## License
+
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for more details.
