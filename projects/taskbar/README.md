@@ -6,8 +6,8 @@
 
 `taskbar-angular` is an Angular library that provides a customizable taskbar component, offering a modern and sleek interface for your Angular applications. It is compatible with Angular versions 16, 17, and 18.
 
-![Taskbar Example](./assets/image.png)
-![Taskbar Example](./assets/image2.png)
+![Taskbar Example](./assets/taskbar/image.png)
+![Taskbar Example](./assets/taskbar/image2.png)
 
 ## Table of Contents
 - [Installation](#installation)
